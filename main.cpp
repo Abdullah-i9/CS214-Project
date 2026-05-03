@@ -354,7 +354,9 @@ void loadFromFile(linklist &list, btree &bst, priority_queue &pq) {
 
     int id, priority;
     string title;
-    while (inFile >> id >> priority >> title) {
+    while (inFile >> id >> priority) {
+        inFile >> ws;
+        getline(inFile, title);
         list.append(id, title, priority);
     }
     inFile.close();
@@ -386,7 +388,8 @@ int main() {
         if (choice == 1) {
             int id, priority;
             string title;
-            cout << "Enter Task ID: "; cin >> id;
+            cout << "Enter Task ID: "; 
+            cin >> id;
 
             string test_title; int test_p;
             if (bst.searchbst(id, test_title, test_p)) {
@@ -394,7 +397,10 @@ int main() {
                 continue;
             }
 
-            cout << "Enter Title: "; cin >> title;
+            cout << "Enter Title: "; 
+            cin >> ws;
+            getline(cin, title);
+
             cout << "Enter Priority: "; cin >> priority;
 
             list.append(id, title, priority);
@@ -403,12 +409,15 @@ int main() {
 
         } else if (choice == 2) {
             int id;
-            cout << "Enter Task ID to edit: "; cin >> id;
+            cout << "Enter Task ID to edit: "; 
+            cin >> id;
 
             string title; int p;
             if (bst.searchbst(id, title, p)) {
                 cout << "Current details: " << title << " (Priority: " << p << ")\n";
-                cout << "Enter New Title: "; cin >> title;
+                cout << "Enter New Title: "; 
+                cin >> ws;
+                getline(cin, title);
                 cout << "Enter New Priority: "; cin >> p;
 
                 list.edit(id, title, p);
